@@ -2231,6 +2231,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dialog-polyfill@npm:^0.4.7":
+  version: 0.4.10
+  resolution: "dialog-polyfill@npm:0.4.10"
+  checksum: f5f472542a059ade7f1f19bc7bf7acf19210a1d89f9dda99cc67027f58709307c8c8faff9e4217cf9ef4d06ef0be3bf9885d48a7304e0f5b01b4f36c0e4570e1
+  languageName: node
+  linkType: hard
+
 "dlv@npm:^1.1.0":
   version: 1.1.3
   resolution: "dlv@npm:1.1.3"
@@ -2673,6 +2680,18 @@ __metadata:
     "@firebase/storage-compat": 0.2.0
     "@firebase/util": 1.8.0
   checksum: ffb648917fc7659a5f37edde618721d7267c01005013d2bab75d1289d6eec2bd37d2739a7dd3d669848ed0d4c4c098abe9e1a05d1d3df6c78acb95752d3ab849
+  languageName: node
+  linkType: hard
+
+"firebaseui@npm:^6.0.0":
+  version: 6.0.2
+  resolution: "firebaseui@npm:6.0.2"
+  dependencies:
+    dialog-polyfill: ^0.4.7
+    material-design-lite: ^1.2.0
+  peerDependencies:
+    firebase: ^9.1.3
+  checksum: bbf88171ac19ecd9f36ecbfa95bedda359fe55d2179f4cf876ebf29a97b63b846df0ebed3802760c222bc47f13b0452aaf5ef965748c76907f8b7b528097b32a
   languageName: node
   linkType: hard
 
@@ -3310,6 +3329,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"material-design-lite@npm:^1.2.0":
+  version: 1.3.0
+  resolution: "material-design-lite@npm:1.3.0"
+  checksum: f5d45f84408feb11c6e6da2389b69f73cbef3954b9259eced1f25070ad6e299f59782ca7e63e37635bdc177aea69a58aaa7b03fb9f74070a9dd6a44364d6bc9a
+  languageName: node
+  linkType: hard
+
 "minimatch@npm:^3.0.4, minimatch@npm:^3.0.5, minimatch@npm:^3.1.1, minimatch@npm:^3.1.2":
   version: 3.1.2
   resolution: "minimatch@npm:3.1.2"
@@ -3876,6 +3902,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-firebaseui@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "react-firebaseui@npm:6.0.0"
+  dependencies:
+    firebaseui: ^6.0.0
+  peerDependencies:
+    firebase: ^9.1.3
+    react: ">=15 <=17"
+  checksum: 05c58ddbe7b8054158366d58a024af3512be3606e982e635eb34b1de5e1c398cf3cb9f2985e75c654c5e1d31ac0ba1bed8c37913d34e25954abc0b1516dc78d9
+  languageName: node
+  linkType: hard
+
 "react-is@npm:^16.13.1, react-is@npm:^16.7.0":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
@@ -4057,6 +4095,7 @@ __metadata:
     prettier-eslint: ^13.0.0
     react: 17.0.2
     react-dom: 17.0.2
+    react-firebaseui: ^6.0.0
     sass: ^1.49.9
   languageName: unknown
   linkType: soft

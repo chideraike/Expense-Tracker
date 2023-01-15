@@ -87,10 +87,12 @@ export default function ExpenseDialog(props) {
         setIsSubmitting(true);
 
         try {
-            await uploadImage(formFields.file, authUser.uid)
+            const bucket = await uploadImage(formFields.file, authUser.uid)
+            await addReceipt(authUser.uid, formFields.date, formFields.locationName, formFields.address, formFields.items, formFields.amount, bucket)
             props.onSuccess(RECEIPTS_ENUM.add)
         } catch (error) {
             props.onError(RECEIPTS_ENUM.add)
+            console.log(error)
         }
 
         closeDialog()
@@ -119,7 +121,7 @@ export default function ExpenseDialog(props) {
                             label="Date"
                             value={formFields.date}
                             onChange={(newDate) => {
-                                setFormFields(prevState => ({ ...prevState, date: newDate }));
+                                setFormFields(prevState => ({ ...prevState, date: newDate.$d }));
                             }}
                             maxDate={new Date()}
                             renderInput={(params) => <TextField color="tertiary" {...params} />}

@@ -17,9 +17,9 @@
 
 import { useState, useEffect } from 'react';
 import { Avatar, Button, Dialog, DialogActions, DialogContent, Stack, TextField, Typography } from '@mui/material';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import DatePicker from '@mui/lab/DatePicker';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { useAuth } from '../firebase/auth';
 import { addReceipt, updateReceipt } from '../firebase/firestore';
 import { replaceImage, uploadImage } from '../firebase/storage';
@@ -50,6 +50,7 @@ const DEFAULT_FORM_STATE = {
   - onCloseDialog emits to close dialog
  */
 export default function ExpenseDialog(props) {
+    const { authUser } = useAuth()
     const isEdit = Object.keys(props.edit).length > 0;
     const [formFields, setFormFields] = useState(isEdit ? props.edit : DEFAULT_FORM_STATE);
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -82,6 +83,19 @@ export default function ExpenseDialog(props) {
         props.onCloseDialog();
     }
 
+    const handleSubmit = async () => {
+        setIsSubmitting(true);
+
+        try {
+            await uploadImage(formFields.file, authUser.uid)
+            props.onSuccess(RECEIPTS_ENUM.add)
+        } catch (error) {
+            props.onError(RECEIPTS_ENUM.add)
+        }
+
+        closeDialog()
+    }
+
     return (
         <Dialog classes={{ paper: styles.dialog }}
             onClose={() => closeDialog()}
@@ -100,7 +114,7 @@ export default function ExpenseDialog(props) {
                     <Typography>{formFields.fileName}</Typography>
                 </Stack>
                 <Stack>
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker
                             label="Date"
                             value={formFields.date}
@@ -122,7 +136,7 @@ export default function ExpenseDialog(props) {
                     <Button color="secondary" variant="contained" disabled={true}>
                         Submitting...
                     </Button> :
-                    <Button color="secondary" variant="contained" disabled={isDisabled()}>
+                    <Button color="secondary" variant="contained" disabled={isDisabled()} onClick={handleSubmit}>
                         Submit
                     </Button>}
             </DialogActions>

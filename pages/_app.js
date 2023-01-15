@@ -21,13 +21,16 @@ import { ThemeProvider } from '@mui/material/styles';
 import { theme } from '../styles/theme.js';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { AuthUserProvider } from '../firebase/auth';
 
 export default function App({ Component, pageProps }) {
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <ThemeProvider theme={theme}>
-                <Component {...pageProps} />
-            </ThemeProvider>
+            <AuthUserProvider>
+                <ThemeProvider theme={theme}>
+                    <Component {...pageProps} />
+                </ThemeProvider>
+            </AuthUserProvider>
         </LocalizationProvider>
     );
 }
